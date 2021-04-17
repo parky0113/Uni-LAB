@@ -1,0 +1,16 @@
+# This is final exercise of 'if statement'.
+# This is going to tell you how long prisoners will be imprisoned for.
+print("Yes or No")
+XA = input("Did XA confess?")
+XB = input("Did XB confess?")
+
+if XA == "Yes":
+    if XB == "Yes":
+        print("Both XA & XB will be imprisoned for 5 years.")
+    elif XB == "No":
+        print("XB will be imprisoned for 10 years and XA will be free.")
+elif XA == "No":
+    if XB == "Yes":
+        print("XA will be imprisoned for 10 years and XB will be free.")
+    elif XB == "No":
+        print("Both XA & XB will be imprisoned for a year.")
