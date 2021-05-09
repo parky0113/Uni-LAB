@@ -1,6 +1,8 @@
 import sympy as sp
 from sympy.parsing.sympy_parser import parse_expr
 from sympy.solvers import solve
+import matplotlib.pyplot as plt
+import math
 # Never write file name as one of library names
 
 def differentiate_equation(exp):
@@ -55,3 +57,81 @@ def num_intersections(expressions):
                 count += len(sp.solve(main - (parse_expr(expressions[j]))))
         count_list.append(count)
     return count_list
+
+
+def make_graph(y_vals):
+    """ with given data, y_vals
+    draw a line graph 
+    returning plt obj is just return plt """
+    plt.plot(y_vals)
+    plt.show()
+    return plt
+
+def make_graph(x_vals, y_vals):
+    """ this function will graph
+    values given x_vals and y_vals """
+    plt.plot(x_vals, y_vals)
+    plt.show()
+    return plt
+
+def looping(my_func, interval, limit):
+    """
+    this function will generate graph
+    with given functions and certain x_vals
+    """
+    x = 0.0
+    while x < limit:
+        plt.plot(x, my_func(x), 'r.')
+        x += interval
+    plt.show()
+    return plt
+
+def plot_legend(filename, x_axis, data):
+    """
+    this function will plot csv data
+    with labels and certain data
+    """
+    df = pd.read_csv(filename)
+    for label in data.keys():
+        plt.plot(df[x_axis], df[label], label= data.get(label))
+    plt.legend()
+    plt.show()
+    return plt
+
+def gaussian(x, x0, k0, sigma):
+    """ this will help function make_packet
+    this is base function for gaussian """
+    return (abs((1/((2*np.pi*(sigma**2))**(1/4))) \
+    * (np.exp(1))**((-((x-(x0))**2)) / (4*(sigma**2))) \
+    * (np.exp(1)**((1j)*(k0)*x))))**2
+
+def make_packet(x0, k0, sigma):
+    """ this function will draw graph
+    gaussian packet wave idk how 
+    but still it works"""
+    xs = np.arange(0, 100.5, 0.5)
+    plt.plot(xs, gaussian(xs, x0, k0, sigma))
+    plt.show()
+    return plt
+
+"""
+multiple conditions for np.where
+arr = arr[np.where((condition1) & (condition2))]
+"""
+
+def sympy_grapher(expression, granularity=0.1, limits=[-10,10,-10,10]):
+    """
+    this function will graph function expression
+    """
+    x = sp.symbols('x')
+    x_pts = np.arange(limits[0], limits[1]+granularity, granularity)
+    expr = parse_expr(expression)
+    f = sp.lambdify(x, expr, 'numpy') 
+    y_arr = f(x_pts)
+    plt.plot(x_pts, y_arr)
+    plt.ylim([limits[2], limits[3]])
+    plt.xlim([limits[0], limits[1]])
+    plt.show()
+    return plt
+
+#limit때문에 시바 1시간을 죽쒓네...
