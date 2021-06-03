@@ -53,8 +53,7 @@ def num_intersections(expressions):
         for j in range(len(expressions)):
             if i == j:
                 continue
-            else:
-                count += len(sp.solve(main - (parse_expr(expressions[j]))))
+            count += len(sp.solve(main - (parse_expr(expressions[j]))))
         count_list.append(count)
     return count_list
 
